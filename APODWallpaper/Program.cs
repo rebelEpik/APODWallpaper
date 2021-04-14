@@ -35,35 +35,11 @@ namespace APODWallpaper
                 Wallpaper.Set(myUri, Wallpaper.Style.Fill);
             } catch (Exception e)
             {
-
+                Console.WriteLine(e.Message);
             }
-
-
-
-            Timer timer = new Timer();
-            
-            timer.Interval = 86400000;
-            timer.Elapsed += Timer_Elapsed;
-            timer.Start();
 
         }
 
-        private static void Timer_Elapsed(object sender, ElapsedEventArgs e)
-        {
-            var web = new HtmlWeb();
-            var doc = web.Load(url);
-            var image = doc.DocumentNode.SelectSingleNode("//html//body//img").Attributes["src"].Value;
-            var temp = image.Split('/');
-            var filename = temp[2];
-            var imageURL = "https://apod.nasa.gov/apod/" + image;
-            using (WebClient client = new WebClient())
-            {
-                client.DownloadFile(new Uri(imageURL), filename);
-
-            }
-            Console.WriteLine(imageURL);
-            Console.ReadLine();
-        }
     }
 
     public sealed class Wallpaper
